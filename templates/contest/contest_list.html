@@ -1,0 +1,102 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}contests | EPC{% endblock title %}
+
+{% block content %}
+<style>
+  body,
+  html {
+      background: #CACACA !important;
+  }
+</style>
+<br><br><br>
+<div action="">
+
+  <div class="list-group" style="width: 92.8%; margin:0 auto; box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);">
+    <div style="background-color: rgb(201, 201, 201); font-weight: bold; font-size: 20px; text-align: center;" class="list-group-item list-group-item-action list-group-item-contestlist">Upcomming or Running Contests</div>
+  </div>
+  <div style="width: 90%; margin: 0 auto; background-color: red; font-size: 15px;">
+    <div class="row">
+        <div class="col-lg-12 col-md-12" style="background-color: rgb(236, 235, 235);">
+            <div style="padding-top: 0rem;" >
+              <div class="container">
+                <div class="tablec">
+                  <table class="table table-striped table-bordered mydatatable" style="box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);">
+                    <thead>
+                      <tr style="text-align: center;">
+                        <th>contest name</th>
+                        <th>start time</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tab">
+                      {% for contest in contest_list %}
+                      <tr style="text-align: center;">
+                        <td><a href="{% url 'contest_info' pk=contest.id %}" class="list-group-item list-group-item-action list-group-item-contestlist " style="background-color: rgb(236, 235, 235);">
+                        <h4 class="contest-name-header">{{contest.name}}</h4>
+                        </a>
+                        </td>
+                        <td><a href="{% url 'contest_info' pk=contest.id %}" class="list-group-item list-group-item-action list-group-item-contestlist " style="background-color: rgb(236, 235, 235);">
+                        <p class="contest-date-header">{{contest.start_time}}</p>
+                        </a></td>
+                      </tr>
+                      {% endfor%}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+<br>
+<div class="list-group" style="width: 92.8%; margin:0 auto; box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);">
+  <div style="background-color: rgb(201, 201, 201); font-weight: bold; font-size: 20px; text-align: center;" class="list-group-item list-group-item-action list-group-item-contestlist">PAST CONTEST</div>
+</div>
+<div style="width: 90%; margin: 0 auto; background-color: red; font-size: 15px;">
+  <div class="row">
+      <div class="col-lg-12 col-md-12" style="background-color: rgb(236, 235, 235);">
+          <div style="padding-top: 0rem;" >
+            <div class="container">
+              <div class="tablec">
+                <table class="table table-striped table-bordered mydatatable" style="box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);">
+                  <thead>
+                    <tr style="text-align: center;">
+                      <th>contest name</th>
+                      <th>start time</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tab">
+                    {% for contest in past_contest %}
+                    <tr style="text-align: center;">
+                      <td><a href="{% url 'contest_info' pk=contest.id %}" class="list-group-item list-group-item-action list-group-item-contestlist " style="background-color: rgb(236, 235, 235);">
+                      <h4 class="contest-name-header">{{contest.name}}</h4>
+                      </a>
+                      </td>
+                      <td><a href="{% url 'contest_info' pk=contest.id %}" class="list-group-item list-group-item-action list-group-item-contestlist " style="background-color: rgb(236, 235, 235);">
+                      <p class="contest-date-header">{{contest.start_time}}</p>
+                      </a></td>
+                    </tr>
+                    {% endfor%}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<br><br><br>
+{% endblock content %}
+{% block javascript %}
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+<script>
+    $('.mydatatable').DataTable();
+</script>
+{% endblock javascript%}

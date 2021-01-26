@@ -1,0 +1,18 @@
+open app:
+docker-compose exec web python manage.py startapp users
+
+migration:
+docker-compose exec web python manage.py makemigrations users
+docker-compose exec web python manage.py migrate
+
+create super user
+docker-compose exec web python manage.py createsuperuser
+
+
+docker-compose exec web python manage.py collectstatic
+
+docker-compose exec web pipenv install django-ckeditor
+
+
+
+

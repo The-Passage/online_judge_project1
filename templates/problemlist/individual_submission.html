@@ -1,0 +1,94 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}{{submission.problem_id.problem_name}} | EPC{% endblock title %}
+
+{% block content %}
+<style>
+    body,
+    html {
+        background: #CACACA !important;
+    }
+</style>
+  <br><br><br>
+  <div>
+    <div class="row" style="width: 92.8%; margin:0 auto; box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);">
+        <div style="background-color: rgb(201, 201, 201); font-weight: bold; font-size: 20px; text-align: center;" class="list-group-item list-group-item-action list-group-item-contestlist">Submission Detail</div>
+    </div>
+    <div style="width: 90%; margin: 0 auto; background-color: red;">
+        <div class="row">
+            <div class="col-lg-12 col-md-12" style="background-color: rgb(212, 207, 207);">
+                <div style="padding-top: 2rem;" >
+                    <div class="container">
+                        <div class="tablec">
+                            <table class="table table-striped mydatatable" style="box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Author</th>
+                                        <th>Problem</th>
+                                        <th>Submission Time</th>
+                                        <th>Language</th>
+                                        <th>Verdict</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                        <tr>
+                                            <td>{{ submission.id }}</td>
+
+                                            <td> {{submission.user_id}} </td>
+                                            <td>{{submission.problem_id.problem_name}}</td>
+                                            
+                                            <td> {{ submission.submission_time }} </td>
+                                            <td> {{submission.language}} </td>
+
+                                            {% if submission.judge_result == "Accepted" %}
+                                                <td style="color: green"> {{submission.judge_result}} </td>
+                                            {% else %}
+                                                <td style="color: red"> {{ submission.judge_result }} </td>
+                                            {% endif %}
+                                        </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <br>
+    <div class="row" style="width: 92.8%; margin:0 auto; box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);">
+        <div style="background-color: rgb(201, 201, 201); font-weight: bold; font-size: 20px; text-align: center;" class="list-group-item list-group-item-action list-group-item-contestlist">Source Code</div>
+    </div>
+    <div style="width: 90%; margin: 0 auto; padding-top: 2rem; padding-bottom: 5rem;">
+        <div class="row">
+            <div class="col-lg-12 col-md-12" style="background-color: rgb(212, 207, 207); padding-bottom: 2rem;">
+                <div style="padding-top: 2rem;" >
+                    <div class="container" style="box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);">
+                        <pre style="padding-top: 2rem; padding-bottom: 2rem; padding-left: 3rem;" class="prettyprint linenums"><code class="language-c">{{file_content}}</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-1 col-md-1">
+            </div>
+        </div>
+    </div>
+</div>
+<br><br><br>
+{% endblock content %}
+
+{% block javascript %}
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+<script>
+    $('.mydatatable').DataTable();
+</script>
+{% endblock javascript%}
