@@ -1,0 +1,116 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}signup details | EPC{% endblock title %}
+
+{% block content %}
+<style>
+    body,
+    html {
+        background: #CACACA !important;
+    }
+</style>
+<br><br><br><br><br><br><br>
+<style>
+    body,
+    html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        background: #CACACA !important;
+    }
+    .user_card {
+        width: 350px;
+        margin-top: auto;
+        margin-bottom: auto;
+        background: #CACACA;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        padding: 10px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        border-radius: 5px;
+    }
+
+    .form_container {
+        margin-top: 20px;
+    }
+
+    #form-title{
+        color: #262B37;
+    }
+    .login_btn {
+        width: 100%;
+        background: #262B37 !important;
+        color: white !important;
+    }
+    .login_btn:focus {
+        box-shadow: none !important;
+        outline: 0px !important;
+    }
+    .login_container {
+        padding: 0 2rem;
+    }
+    .input-group-text {
+        background: #262B37 !important;
+        color: white !important;
+        border: 0 !important;
+        border-radius: 0.25rem 0 0 0.25rem !important;
+    }
+    .input_user,
+    .input_pass:focus {
+        box-shadow: none !important;
+        outline: 0px !important;
+    }
+
+</style>
+
+</head>
+<body>
+<div class="container h-100">
+    <div class="d-flex justify-content-center h-100">
+        <div class="user_card">
+            <div class="d-flex justify-content-center">
+                <h3 id="form-title">Enter Password for {{contest_info.name}}</h3>
+            </div>
+            <div class="d-flex justify-content-center form_container">
+                <form method="POST" action="" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="input-group mb-3">
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        </div>
+                        <input class="input100" type="text" name="contest_pass">
+                    </div>
+                    <div class="d-flex justify-content-center mt-3 login_container">
+                     <input class="btn login_btn" type="submit" value="Enter Contest">
+                    </div>
+                    {% if contest_error %}
+                    <div class="d-flex justify-content-center mt-3 login_container" style="margin-top: -2rem; padding-bottom: 1rem;">
+                        <p style="color: red;">{{contest_error}}</p>
+                    </div>
+                   {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+                    /* Because i didnt set placeholder values in forms.py they will be set here using vanilla Javascript
+    //We start indexing at one because CSRF_token is considered and input field 
+     */
+
+    //Query All input fields
+    var form_fields = document.getElementsByTagName('input')
+    form_fields[1].placeholder='Contest Password';
+
+    for (var field in form_fields){	
+        form_fields[field].className += ' form-control'
+    }
+</script>
+</body>
+<br><br><br><br><br><br>
+{% endblock content %}

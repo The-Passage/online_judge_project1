@@ -1,0 +1,70 @@
+{% extends 'contest_base.html' %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/clearification_css.css' %}">
+
+{% block title %}Clearifications | EPC{% endblock title %}
+
+{% block content %}
+<style>
+    body,
+    html {
+        background: #CACACA !important;
+    }
+</style>
+<br><br><br>
+<div class="container">
+    <div class="row">
+        {% if running %}
+        <div class="col-md-4 col-sm-3">
+            <div style="background-color: rgb(201, 201, 201); font-weight: bold; font-size: 20px; border-radius: 5px; border-style: solid; border-width: 1px; text-align: center; padding-top: .6rem; box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);" class="list-group-item list-group-item-action list-group-item-contestlist">Seek Clearifications</div>
+            <div class="col-md-12" style="background-color: rgb(236, 235, 235); border-radius: 5px; border-style: solid; border-width: 1px; text-align: center; padding-top: .6rem; box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div>
+                        <h5 style="font-size: 15px;">Select Problem</h5>
+                        <select name="problem_name" id="selected-problem">
+                            {% for problem in problem_list %}
+                                <option value="{{problem.id}}"> {{ problem.problem_name }} </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="h-user" style="font-size: 15px;">
+                        <strong>Clearification</strong>
+                    </div>
+                    <textarea name="clearification-text" id="clearification-text" cols="30" rows="2"></textarea>
+                    <div style="text-align: middle; width: 65%; margin: 0 auto;">
+                        <input type="submit" value="Submit">
+                    </div>
+                    <div style="height: 3px;"></div> 
+                </form>
+            </div>
+            <div style="height: 3px;"></div> 
+        </div>
+        {% endif %}
+      <div class="col-md-8">
+        <div class="list-group" style="box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);">
+          <div style="background-color: rgb(201, 201, 201); font-weight: bold; font-size: 20px; text-align: center;" class="list-group-item list-group-item-action list-group-item-contestlist">Clearifications for {{ contest_info.name }}</div>
+        </div>
+        <div class="list-group" style="box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);">
+            {% for c in clearification_list %}
+            <div class="col-md-10 col-sm-10 col-10" style="width: 90%;">
+                <div class="list-group-item list-group-item-action list-group-item-contestlist" style="width: 121%; background-color: rgb(236, 235, 235);">
+                <p style="padding-bottom: 1rem; margin-top: 5px; font-size: 18px;">{{ c.associated_problem.problem_title }}. {{ c.clearification_text }} </p>
+                <hr>
+                {% if c.judge_ignored == True %}
+                    <p style="font-size: 15px;">Ignored</p>
+                {% elif c.judge_answer|length > 0  %}
+                    <p style="font-size: 15px;">{{c.judge_answer}}</p>
+                {% else %}
+                <p style="font-size: 15px;">Not Answered Yet!</p>
+                {% endif %}
+                </div>
+            </div>
+            {% endfor %}  
+            <div style="height: 3px;"></div> 
+        </div>
+      </div>
+    </div>
+  </div>
+<br><br><br>
+{% endblock content %}
